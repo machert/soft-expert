@@ -16,12 +16,12 @@ require_once './api/controllers/TaxProductTypeController.php';
 require_once './api/controllers/ProductController.php';
 require_once './api/controllers/SaleController.php';
 require_once './api/controllers/SaleProductController.php';
- 
+
 
 function response($data){
     header('Content-Type: application/json');
     echo json_encode($data);
-} 
+}  
 
 // function route($routes, $controllerPath, $method, $params) {
 //     $route = null;
@@ -107,6 +107,10 @@ $routes = [
     ],
     '/tax-product-type/' => [
         'controller' => 'TaxProductTypeController',
+        'method' => 'findByTaxId',
+    ],
+    '/tax-product-type/' => [
+        'controller' => 'TaxProductTypeController',
         'method' => 'store',
     ],
     '/tax-product-type/' => [
@@ -153,7 +157,7 @@ try{
             $params = $data['params'] ?? [];
             $route = $data['route'] ?? '';
             $method = $data['method'] ?? '';
-
+            
             if(!empty($route) && !empty($method)){
                 $controllerName = "api\\controllers\\" . $route;
                 $controller = new $controllerName;
@@ -162,11 +166,13 @@ try{
             }else{
                 throw new \Exception ("Dados de cabeçalho inválidos.");
             }
-    
-    
+
         }
         
-    } 
+    } else{
+        header("Location:./web/index.html");
+        exit();
+    }
 
 }
 catch (\DivisionByZeroError $e) {

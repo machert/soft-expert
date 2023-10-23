@@ -20,18 +20,61 @@ class TaxProductType {
  
     public function selectAll() {
         $db = new Db;
-        $sql = "select * 
-                from " . self::$table_name . "
-                order by id asc ";
+        $sql = "select  
+                    tpt.id as id,
+                    tpt.value as value,
+
+                    t.id as tax_id,
+                    t.name as tax_name,
+
+                    pt.id as product_type_id,
+                    pt.name as product_type_name
+
+                from " . self::$table_name . " tpt
+                join tax t on t.id = tpt.tax_id
+                join product_type pt on pt.id = tpt.product_type_id
+                order by tpt.id asc ";
         return $db->select($sql); 
     }
 
     public function findById(){
         $db = new Db;
-        $sql = "select * 
-                from " . self::$table_name . "
-                where id = $1";
+        $sql = "select 
+                    tpt.id as id,
+                    tpt.value as value,
+
+                    t.id as tax_id,
+                    t.name as tax_name,
+
+                    pt.id as product_type_id,
+                    pt.name as product_type_name 
+                from " . self::$table_name . " tpt
+                join tax t on t.id = tpt.tax_id
+                join product_type pt on pt.id = tpt.product_type_id
+                where tpt.id = $1
+                order by tpt.id asc";
         $params = [$this->getId()];
+        return $db->select($sql, $params);
+
+    }
+
+    public function findByTaxId(){
+        $db = new Db;
+        $sql = "select 
+                    tpt.id as id,
+                    tpt.value as value,
+
+                    t.id as tax_id,
+                    t.name as tax_name,
+
+                    pt.id as product_type_id,
+                    pt.name as product_type_name 
+                from " . self::$table_name . " tpt
+                join tax t on t.id = tpt.tax_id
+                join product_type pt on pt.id = tpt.product_type_id
+                where tpt.tax_id = $1
+                order by tpt.id asc";
+        $params = [$this->getTaxId()];
         return $db->select($sql, $params);
 
     }
@@ -71,7 +114,6 @@ class TaxProductType {
     }
 
     public function validateAttributes($params){
-
         if($params['id']){
             if (empty($this->getId()) || !is_numeric($this->getId())) {
                 return false;

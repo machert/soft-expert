@@ -1,3 +1,46 @@
+
+## Comandos
+
+mkdir soft_expert
+chmod -R 777 .
+
+sudo add-apt-repository ppa:ondrej/php
+
+sudo apt-get update
+sudo apt-get install php8.2
+## postgree
+sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get -y install postgresql
+
+sudo apt-get install postgresql-12
+
+## habilitar no php.ini o postgree
+Editei o php.ini do 8.2 que eu estava usando e inclui no php o driver do postgree em dynamic extension:
+extension=pgsql.so
+
+
+## alterar senha do usuario posgres
+sudo su - postgres
+
+ALTER USER postgres PASSWORD 'soft123';
+
+## reiniciar
+sudo systemctl restart apache2
+
+php -S localhost:8080
+
+## não consegui terminar tudo, fiquei muito preso no setup
+
+## soft_expert.sql tem a estrutura sql 
+
+
+
+###########################################################################
 ## Comandos
 
 mkdir soft_expert
@@ -159,12 +202,12 @@ sudo systemctl restart apache2
 sudo a2enmod rewrite
 
 
-
+## POSTGREE
 sudo su - postgres
 psql -U postgres -d soft_expert
 
 
-verificar o .env pra não ser exibido
+fazer depois verificar o .env pra não ser exibido
 
 
 
@@ -179,11 +222,19 @@ sudo apt-get update
 sudo apt-get upgrade
 
 npm create vue@latest
-
-
-
+ 
 
 ## sql
+CREATE TABLE product_type (
+    id serial PRIMARY KEY,
+    name varchar(50) not null
+);
+
+CREATE TABLE tax (
+    id serial PRIMARY KEY,
+    name varchar(50) not null
+);
+
 CREATE TABLE tax_product_type (
     id serial PRIMARY KEY,
     tax_id integer REFERENCES tax(id),
@@ -212,3 +263,10 @@ CREATE TABLE sale_product (
     product_id integer REFERENCES product(id) NOT NULL,
     quantity numeric NOT NULL
 );
+
+# comando nao funciona, sem resposta
+pg_dump -U postgres soft_expert > soft_expert.sql
+
+psql -U postgres -d soft_expert -f soft_expert_202310221204.sql
+
+psql -U postgres -d soft_expert -f soft_expert.sql

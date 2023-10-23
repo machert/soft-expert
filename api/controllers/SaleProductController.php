@@ -32,6 +32,18 @@ class SaleProductController {
             throw $e;
         }
     }
+    
+    public function findBySaleId($request){
+        $saleProduct = new SaleProduct();
+    
+        $saleProduct->setSaleId($request['sale_id'] ?? 0);
+
+        if(!$saleProduct->validateAttributes(['sale_id' => true])){
+            return ['status' => 400, 'result' => 'Dados inválidos'];
+        }
+
+        return $saleProduct->findBySaleId();
+    }
 
     public function store($request){
         $saleProduct = new SaleProduct(); 

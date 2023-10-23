@@ -34,6 +34,17 @@ class SaleProduct {
         return $db->select($sql, $params);
 
     }
+    
+    public function findBySaleId(){
+        $db = new Db;
+        $sql = "select * 
+                from " . self::$table_name . "
+                where sale_id = $1
+                order by id ";
+        $params = [$this->getSaleId()];
+        return $db->select($sql, $params);
+
+    }
 
     public function insert(){
         $db = new Db;

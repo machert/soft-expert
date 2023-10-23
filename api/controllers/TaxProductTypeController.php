@@ -27,6 +27,17 @@ class TaxProductTypeController {
 
         return $taxProductType->findById();
     }
+    
+    public function findByTaxId($request){
+        $taxProductType = new TaxProductType();
+        $taxProductType->setTaxId($request['tax_id'] ?? 0);
+
+        if(!$taxProductType->validateAttributes(['tax_id' => true])){
+            return ['status' => 400, 'result' => 'Dados inválidos'];
+        }
+        
+        return $taxProductType->findByTaxId();
+    }
 
     public function store($request){
         $taxProductType = new TaxProductType();
