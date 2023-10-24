@@ -104,11 +104,11 @@ export default {
                 } 
 
                 const response = await TaxProductType.put(params);
-                // if (response?.data?.status == 200) {                
-                //     //this.$emit("navigate-to", {"page": "tax_product_type", "params": { "tax_id" : this.tax_id}});
-                // }else{
-                //     alert('Ocorreu um problema ao inserir as tarifas');
-                // }
+                if (response?.data?.status == 200) {                
+                    this.$emit("navigate-to", {"page": "tax_product_type", "params": { "tax_id" : this.tax_id}});
+                }else{
+                    alert('Ocorreu um problema ao inserir as tarifas');
+                }
             } catch (error) {
                 alert('Ocorreu um problema ao inserir as tarifas');
                 console.error('error', error);

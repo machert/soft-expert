@@ -19,17 +19,30 @@ class Product {
 
     public function selectAll() {
         $db = new Db;
-        $sql = "select * 
-                from " . self::$table_name . "
-                order by id asc ";
+        $sql = "select 
+                    p.id as id,
+                    p.name as name,
+                    p.value as value,
+                    p.product_type_id as product_type_id,
+                    pt.name as product_type_name 
+                from " . self::$table_name . " p
+                join product_type pt on pt.id = p.product_type_id
+                order by p.id asc ";
         return $db->select($sql);
     }
 
     public function findById(){
         $db = new Db;
-        $sql = "select * 
-                from " . self::$table_name . "
-                where id = $1";
+        $sql = "select 
+                    p.id as id,
+                    p.name as name,
+                    p.value as value,
+                    p.product_type_id as product_type_id,
+                    pt.name as product_type_name 
+                from " . self::$table_name . " p
+                join product_type pt on pt.id = p.product_type_id
+                where p.id = $1
+                order by p.id asc ";
         $params = [$this->getId()];
         return $db->select($sql, $params);
 
