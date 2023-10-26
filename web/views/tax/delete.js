@@ -22,11 +22,10 @@ export default {
             if (response?.data?.status == 204) {                
                 this.$emit("navigate-to", {"page": "tax"});
             }else{
-                alert('Ocorreu um problema ao deletar o imposto');
+                this.$emit("navigate-to", {"page": "tax", "error_message" : "Ocorreu um problema ao deletar o imposto"});
             }
         } catch (error) {
-            alert('Ocorreu um problema ao deletar o imposto');
-            console.error('error', error);
+            this.$emit("navigate-to", {"page": "tax", "error_message" : error});
         }
     },
 

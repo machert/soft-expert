@@ -1,0 +1,6 @@
+/vendor/
+/api/vendor/
+/api/core/
+/api/public/
+/api/routes/
+/api/composer.json

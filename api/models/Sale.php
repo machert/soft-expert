@@ -33,6 +33,17 @@ class Sale {
         return $db->select($sql, $params);
 
     }
+    
+    public function findByName(){
+        $db = new Db;
+        $sql = "select * 
+                from " . self::$table_name . "
+                where name like $1
+                order by id desc";
+        $params = [$this->getNameCustomer()];
+        return $db->select($sql, $params);
+
+    }
 
     public function insert(){
         $db = new Db;

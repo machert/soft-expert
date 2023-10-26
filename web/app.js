@@ -9,7 +9,6 @@ export default {
     setup() {
         const {watchEffect, ref} = Vue;
         const page = ref(null);
-        const hide_menu = ref(true);
         const params = ref(null);
         
         //url management
@@ -27,12 +26,16 @@ export default {
             }; 
         })
         
-        return {page, menu, hide_menu, params}
+        return {page, menu, params}
     },
     methods: {
         navigateToNewPage(params) {
             this.page = params.page;
-            this.params = params.params ?? null;
+            if(params.error_message){
+                alert(params.error_message)
+            }else{
+                this.params = params.params ?? null;
+            }
         }
     },
 
@@ -44,12 +47,12 @@ export default {
                 <a href="./index.html" class="logo d-flex align-items-center">
                     <img src="https://www.softexpert.com/wp-content/webp-express/webp-images/uploads/2021/03/logo-rodape.png.webp" alt="">
                 </a>
-                <i class="bi bi-list toggle-sidebar-btn" v-on:click='hide_menu = !hide_menu'></i>
+                <i class="bi bi-list toggle-sidebar-btn" ></i>
             </div>
 
         </header> 
 
-        <aside id="sidebar" class="sidebar" v-if="hide_menu">
+        <aside id="sidebar" class="sidebar" >
       
           <ul class="sidebar-nav" id="sidebar-nav">       
             <li class="nav-heading">menu</li>                  

@@ -287,3 +287,10 @@ pg_dump -U postgres soft_expert > soft_expert.sql
 psql -U postgres -d soft_expert -f soft_expert_202310221204.sql
 
 psql -U postgres -d soft_expert -f soft_expert.sql
+
+
+php -S localhost:8080 -t public
+
+composer init
+
+composer du

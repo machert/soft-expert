@@ -24,6 +24,36 @@ class SaleProduct {
                 order by id asc ";
         return $db->select($sql);
     }
+    
+    public function selectSaleResult() {
+        $db = new Db;
+        $sql = "select 
+                    sp.id as id,
+                    sp.sale_id as sale_id,
+                    sp.product_id as product_id,
+                    sp.quantity as quantity,
+
+                    p.name as product_name,
+                    p.value as product_value,
+
+                    p.value * sp.quantity as total_value,
+
+                    (select 
+                        sum(tpt.value)
+                    from tax_product_type tpt
+                    where
+                        tpt.product_type_id = p.product_type_id
+                    ) * (p.value * sp.quantity) / 100 as total_tax_value
+
+                from " . self::$table_name . " sp
+                join sale s on s.id = sp.sale_id
+                join product p on p.id = sp.product_id
+                where
+                    sp.sale_id = $1
+                order by sp.id asc ";
+        $params = [$this->getSaleId()];
+        return $db->select($sql, $params);
+    }
 
     public function findById(){
         $db = new Db;

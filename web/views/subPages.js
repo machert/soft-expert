@@ -15,6 +15,8 @@ import tax_product_type_delete from './tax_product_type/delete.js'
 import product_create from './product/create.js'
 import product_update from './product/update.js'
 import product_delete from './product/delete.js'
+
+import sale_create from './sale/create.js'
     
 export {
     tax_create,
@@ -33,4 +35,6 @@ export {
     product_create,
     product_update,
     product_delete,
+
+    sale_create,
 }

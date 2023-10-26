@@ -21,130 +21,104 @@ require_once './api/controllers/SaleProductController.php';
 function response($data){
     header('Content-Type: application/json');
     echo json_encode($data);
-}  
-
-// function route($routes, $controllerPath, $method, $params) {
-//     $route = null;
-
-//     // Busca a rota correspondente ao URL solicitada
-//     foreach($routes as $routeUrl => $routeDetails) {
-//         if($routeUrl === $controllerPath) {
-//             $route = $routeDetails;
-//             break;
-//         }
-//     }
-
-//     // Se a rota não foi encontrada, retorna um erro
-//     if(!$route) {
-//         response(['status' => '404', 'message' => 'Endpoint não encontrado']);
-//         return;
-//     }
-
-//     // Instancia o controller e chama o método correspondente
-//     $controllerName = "api\\controllers\\" . $route['controller'];
-//     $controller = new $controllerName;
-//     $response = $controller->{$route['method']}($params);
-
-//     response($response);
-// }
+}   
 
 $method = $_SERVER['REQUEST_METHOD'];
 $url = $_SERVER['REQUEST_URI'];
-$path = parse_url($url, PHP_URL_PATH);
+//$path = parse_url($url, PHP_URL_PATH);
 $get = $_GET;
-// $query_string = $_SERVER['QUERY_STRING'];
 
-$routes = [
-    '/product-type/' => [
-        'controller' => 'ProductTypeController',
-        'method' => 'index',
-    ],
-    '/product-type/' => [
-        'controller' => 'ProductTypeController',
-        'method' => 'show',
-    ],
-    '/product-type/' => [
-        'controller' => 'ProductTypeController',
-        'method' => 'store',
-    ],
-    '/product-type/' => [
-        'controller' => 'ProductTypeController',
-        'method' => 'put',
-    ],
-    '/product-type/' => [
-        'controller' => 'ProductTypeController',
-        'method' => 'delete',
-    ],
+// $routes = [
+//     '/product-type/' => [
+//         'controller' => 'ProductTypeController',
+//         'method' => 'index',
+//     ],
+//     '/product-type/' => [
+//         'controller' => 'ProductTypeController',
+//         'method' => 'show',
+//     ],
+//     '/product-type/' => [
+//         'controller' => 'ProductTypeController',
+//         'method' => 'store',
+//     ],
+//     '/product-type/' => [
+//         'controller' => 'ProductTypeController',
+//         'method' => 'put',
+//     ],
+//     '/product-type/' => [
+//         'controller' => 'ProductTypeController',
+//         'method' => 'delete',
+//     ],
 
-    '/tax/' => [
-        'controller' => 'TaxController',
-        'method' => 'index',
-    ],
-    '/tax/' => [
-        'controller' => 'TaxController',
-        'method' => 'show',
-    ],
-    '/tax/' => [
-        'controller' => 'TaxController',
-        'method' => 'store',
-    ],
-    '/tax/' => [
-        'controller' => 'TaxController',
-        'method' => 'put',
-    ],
-    '/tax/' => [
-        'controller' => 'TaxController',
-        'method' => 'delete',
-    ],
+//     '/tax/' => [
+//         'controller' => 'TaxController',
+//         'method' => 'index',
+//     ],
+//     '/tax/' => [
+//         'controller' => 'TaxController',
+//         'method' => 'show',
+//     ],
+//     '/tax/' => [
+//         'controller' => 'TaxController',
+//         'method' => 'store',
+//     ],
+//     '/tax/' => [
+//         'controller' => 'TaxController',
+//         'method' => 'put',
+//     ],
+//     '/tax/' => [
+//         'controller' => 'TaxController',
+//         'method' => 'delete',
+//     ],
 
-    '/tax-product-type/' => [
-        'controller' => 'TaxProductTypeController',
-        'method' => 'index',
-    ],
-    '/tax-product-type/' => [
-        'controller' => 'TaxProductTypeController',
-        'method' => 'show',
-    ],
-    '/tax-product-type/' => [
-        'controller' => 'TaxProductTypeController',
-        'method' => 'findByTaxId',
-    ],
-    '/tax-product-type/' => [
-        'controller' => 'TaxProductTypeController',
-        'method' => 'store',
-    ],
-    '/tax-product-type/' => [
-        'controller' => 'TaxProductTypeController',
-        'method' => 'put',
-    ],
-    '/tax-product-type/' => [
-        'controller' => 'TaxProductTypeController',
-        'method' => 'delete',
-    ],
+//     '/tax-product-type/' => [
+//         'controller' => 'TaxProductTypeController',
+//         'method' => 'index',
+//     ],
+//     '/tax-product-type/' => [
+//         'controller' => 'TaxProductTypeController',
+//         'method' => 'show',
+//     ],
+//     '/tax-product-type/' => [
+//         'controller' => 'TaxProductTypeController',
+//         'method' => 'findByTaxId',
+//     ],
+//     '/tax-product-type/' => [
+//         'controller' => 'TaxProductTypeController',
+//         'method' => 'store',
+//     ],
+//     '/tax-product-type/' => [
+//         'controller' => 'TaxProductTypeController',
+//         'method' => 'put',
+//     ],
+//     '/tax-product-type/' => [
+//         'controller' => 'TaxProductTypeController',
+//         'method' => 'delete',
+//     ],
 
-    '/product/' => [
-        'controller' => 'ProductController',
-        'method' => 'index',
-    ],
-    '/product/' => [
-        'controller' => 'ProductController',
-        'method' => 'show',
-    ],
-    '/product/' => [
-        'controller' => 'ProductController',
-        'method' => 'store',
-    ],
-    '/product/' => [
-        'controller' => 'ProductController',
-        'method' => 'put',
-    ],
-    '/product/' => [
-        'controller' => 'ProductController',
-        'method' => 'delete',
-    ],
+//     '/product/' => [
+//         'controller' => 'ProductController',
+//         'method' => 'index',
+//     ],
+//     '/product/' => [
+//         'controller' => 'ProductController',
+//         'method' => 'show',
+//     ],
+//     '/product/' => [
+//         'controller' => 'ProductController',
+//         'method' => 'store',
+//     ],
+//     '/product/' => [
+//         'controller' => 'ProductController',
+//         'method' => 'put',
+//     ],
+//     '/product/' => [
+//         'controller' => 'ProductController',
+//         'method' => 'delete',
+//     ],
 
 
-];
+// ];
 
 try{
              
